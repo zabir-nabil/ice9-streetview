@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<style>
+    html,
+    body {
+        height: 95%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #map,
+    #pano {
+        float: left;
+        height: 95%;
+        width: 45%;
+    }
+</style>
+</head>
+
+<body>
+<div id="tray">
+    <button id="doer" onclick="doThings()">do it</button>
+    <span id="resulting"></span>
+</div>
+<div id="map"></div>
+<div id="pano"></div>
+<script>
+    var panorama, map;
+    var APIkey= "AIzaSyC6UbcmFhZkX2q-3EyuHxl56e4zaF3L0y4"
+
+    function initialize() {
+        var fenway = {
+            lat: 42.345573,
+            lng: -71.098326
+        };
+        var agbar = new google.maps.LatLng(41.4035482, 2.1894355);
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: agbar,
+            zoom: 14
+        });
+        panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('pano'), {
+                position: agbar,
+                pov: {
+                    heading: 34,
+                    pitch: 10
+                }
+            });
+        map.setStreetView(panorama);
+    }
+
+    function doThings() {
+        console.log("doing things");
+        document.getElementById("resulting").innerHTML = "https://maps.googleapis.com/maps/api/streetview?size=640x640" +"&pano=" + panorama.getPano() + "&heading=" + panorama.getPov().heading + "&pitch=" + panorama.getPov().pitch + "&fov="+ (180/ (Math.pow(2, panorama.getZoom()?panorama.getZoom():1)))+ "&key=" + APIkey;
+      //use the next line to open in a new tab the resulting image at max size (640x640)
+        window.open("https://maps.googleapis.com/maps/api/streetview?size=640x640" + "&pano=" + panorama.getPano() + "&heading=" + panorama.getPov().heading + "&pitch=" + panorama.getPov().pitch + "&fov="+ (180/ (Math.pow(2, panorama.getZoom())))+ "&key=" +APIkey)
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initialize">
+</script>
+</body>
+
+</html>

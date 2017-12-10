@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<title>
+  Ice9 Streetview
+</title>
+
+<body>
+
+  <input name="lat" type="text" maxlength="512" id="lat" class="searchField" />
+  <input type="button" value="click" OnClick="download()" />
+  <script>
+    function call() {
+      var lat = document.getElementById("lat").value;
+      if (lat == "download") {
+        document.write("Downloading...");
+        download();
+      }
+
+    }
+  </script>
+
+
+
+  <script>
+    function download() {
+
+      var api_key = "AIzaSyC6UbcmFhZkX2q-3EyuHxl56e4zaF3L0y4";
+      var lat = "22.9005";
+      var lang = "89.5024";
+      var file_id = 100;
+      var cnt_img = 1;
+      for (var heading = 0; heading <= 360; heading += 50) {
+        document.write("Downloading... (" + (cnt_img) + ")\r\n");
+        var link = document.createElement('a');
+        var ref = "https://maps.googleapis.com/maps/api/streetview?size=600x400&location=" + lat + "," + lang + "&fov=120&heading=" + heading + " &pitch=20&key=" + api_key;
+        //document.write(ref);
+        link.href = ref;
+        //var filename = toString("R:\ice9\streetview"+file_id);
+        link.download = "null";
+        document.body.appendChild(link);
+        link.click();
+        //file_id++;
+        cnt_img++;
+      }
+
+    }
+  </script>
+
+</body>
+
+</html>
