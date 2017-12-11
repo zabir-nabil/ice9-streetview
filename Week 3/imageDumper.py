@@ -18,7 +18,7 @@ for name in df.getKeys():
     for d in df.generate(name):
         print(d[0], d[1])
         for heading in range(0, 360, 60):
-            gurl = "https://maps.googleapis.com/maps/api/streetview?size=600x540&location={0},{1}&fov=120&heading={2}&pitch=10&key={3}".format(d[0], d[1], heading, key)
+            gurl = "https://maps.googleapis.com/maps/api/streetview?size=640x640&location={0},{1}&fov=120&heading={2}&pitch=10&key={3}".format(d[0], d[1], heading, key)
             r = get(gurl, stream=True)
             mg = Image.open(io.BytesIO(r.content))
             image = np.array(mg)
